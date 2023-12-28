@@ -1,22 +1,35 @@
-document.getElementById('submitBtn').addEventListener('click', async function() {
-    // Disable the button and input
-    document.getElementById('submitBtn').innerHTML = 'Loading...';
-    document.getElementById('submitBtn').disabled = true;
-    document.getElementById('username').disabled = true;
+console.log("hello");
+var inp1 = document.getElementById("inp1")
+var btn = document.getElementById('btn ')
+var req = document.getElementById('req')
+var form1 = document.getElementById('form1')
+var backdrop = document.getElementById('backdrop')
+var btntext = document.getElementById("btntext")
+var spinner = document.getElementById("spinner")
 
-    try {
-        // Simulate a 2-second loading state using a delay
-        await new Promise(resolve => setTimeout(resolve, 2000));
+inp1.addEventListener(('keyup'), (e) => {
+    const value = e.currentTarget.value;
 
-        // Reset button and input state
-        document.getElementById('submitBtn').innerHTML = 'Submit';
-        document.getElementById('submitBtn').disabled = true;
-        document.getElementById('username').disabled = true;
+    if (value === "") {
+        req.style.visibility = 'visible';
+    } else {
+        req.style.visibility = 'hidden';
 
-        // You can add code here to handle the form submission using AJAX or any other technique
-        // Example: const response = await fetch('your-api-endpoint', { method: 'POST', body: formData });
-        // Handle the response as needed
-    } catch (error) {
-        console.error('An error occurred:', error);
     }
-});
+
+})
+
+
+btn.addEventListener(('click'), (e) => {
+    e.preventDefault()
+    btn.classList.remove('btn')
+    btn.classList.add("btn__loading")
+    spinner.style.display = 'flex'
+    setTimeout(() => {
+        spinner.style.display = 'none';
+        inp1.value = "";
+        btn.classList.remove('btn__loading')
+        btn.classList.add('btn__disabled')
+        btn.disabled = true;
+    }, 2000);
+})
